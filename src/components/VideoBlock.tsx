@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Video } from "../data/types";
 
-export function VideoBlock({ video, featured = false, className = "" }: { video: Video; featured?: boolean; className?: string }) {
+export function VideoBlock({ video, featured = false, className = "", muted = true }: { video: Video; featured?: boolean; className?: string; muted?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -23,7 +23,7 @@ export function VideoBlock({ video, featured = false, className = "" }: { video:
           </div>
         ) : (
           <>
-            <video ref={ref} src={video.src} poster={video.poster} muted playsInline preload="metadata"
+            <video ref={ref} src={video.src} poster={video.poster} muted={muted} playsInline preload="metadata"
               onError={() => setFailed(true)} onEnded={() => setPlaying(false)}
               className="w-full max-h-[72vh] object-contain bg-ink"
             />

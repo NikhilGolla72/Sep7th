@@ -30,7 +30,7 @@ export function PersonalVideo({ content }: { content: SiteContent["forYou"] }) {
             style={{ background: "linear-gradient(135deg, #F4B8C1, #D4A54A, #B8A9D4, #A8C5A0)" }}
           >
             <div className="rounded-[22px] overflow-hidden bg-cream">
-              <VideoBlock video={content.video} featured />
+              <VideoBlock video={content.video} featured muted={false} />
             </div>
           </div>
         </motion.div>
