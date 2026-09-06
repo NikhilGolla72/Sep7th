@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-const ACCESS_CODE = "sep7th0907";
+const ACCESS_CODE = "14052206";
 const STORAGE_KEY = "sep7th-unlocked";
 
 export function PasscodeGate({ children }: { children: ReactNode }) {
