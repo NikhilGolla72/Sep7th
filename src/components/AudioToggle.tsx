@@ -9,9 +9,16 @@ export function AudioToggle({ src, label }: { src: string; label: string }) {
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
-    el.addEventListener("canplay", () => setReady(true));
+    const onReady = () => setReady(true);
+    const onError = () => setReady(false);
+    el.addEventListener("canplaythrough", onReady);
+    el.addEventListener("error", onError);
     el.volume = 0.2;
-    return () => el.pause();
+    return () => {
+      el.removeEventListener("canplaythrough", onReady);
+      el.removeEventListener("error", onError);
+      el.pause();
+    };
   }, []);
 
   const toggle = () => {
@@ -23,36 +30,38 @@ export function AudioToggle({ src, label }: { src: string; label: string }) {
 
   return (
     <>
-      <audio ref={audioRef} src={src} loop preload="none" />
-      <motion.button
-        onClick={toggle}
-        className="fixed bottom-16 md:bottom-6 right-6 z-50 flex items-center gap-2 font-body text-[10px] tracking-[0.2em] uppercase text-ink-3 hover:text-coral transition-colors"
-        aria-label={playing ? "Pause music" : "Play music"}
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 0.8 }}
-      >
-        <AnimatePresence mode="wait">
-          {playing ? (
-            <motion.span
-              key="on"
-              className="flex items-end gap-[2px] h-3"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            >
-              {[0, 1, 2].map((i) => (
-                <motion.span key={i} className="w-[2px] bg-coral rounded-full"
-                  animate={{ height: ["3px", "10px", "3px", "8px", "3px"] }}
-                  transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
-                />
-              ))}
-            </motion.span>
-          ) : (
-            <motion.span key="off" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              ♪
-            </motion.span>
-          )}
-        </AnimatePresence>
-        <span>{label}</span>
-      </motion.button>
+      <audio ref={audioRef} src={src} loop preload="metadata" />
+      {ready && (
+        <motion.button
+          onClick={toggle}
+          className="fixed bottom-14 right-4 md:bottom-6 md:right-6 z-50 flex items-center gap-2 font-body text-[10px] tracking-[0.2em] uppercase text-ink-3 hover:text-coral transition-colors"
+          aria-label={playing ? "Pause music" : "Play music"}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <AnimatePresence mode="wait">
+            {playing ? (
+              <motion.span
+                key="on"
+                className="flex items-end gap-[2px] h-3"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              >
+                {[0, 1, 2].map((i) => (
+                  <motion.span key={i} className="w-[2px] bg-coral rounded-full"
+                    animate={{ height: ["3px", "10px", "3px", "8px", "3px"] }}
+                    transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+                  />
+                ))}
+              </motion.span>
+            ) : (
+              <motion.span key="off" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                ♪
+              </motion.span>
+            )}
+          </AnimatePresence>
+          <span>{label}</span>
+        </motion.button>
+      )}
     </>
   );
 }

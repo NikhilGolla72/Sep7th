@@ -17,11 +17,13 @@ export function useStory(total: number): UseStoryReturn {
 
   const goTo = useCallback(
     (index: number) => {
-      if (index < 0 || index >= total) return;
-      setDirection(index > current ? 1 : -1);
-      setCurrent(index);
+      setCurrent((prev) => {
+        if (index < 0 || index >= total || index === prev) return prev;
+        setDirection(index > prev ? 1 : -1);
+        return index;
+      });
     },
-    [current, total]
+    [total]
   );
 
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
@@ -30,6 +32,7 @@ export function useStory(total: number): UseStoryReturn {
   // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (document.querySelector('[role="dialog"][aria-modal="true"]')) return;
       if (e.key === "ArrowRight" || e.key === "ArrowDown") next();
       if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   prev();
     };

@@ -9,8 +9,8 @@ export function PersonalVideo({ content }: { content: SiteContent["forYou"] }) {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-8 md:px-16 py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #FDF2F4 40%, #F5F2FA 100%)" }}
+      className="min-h-screen flex items-center justify-center px-8 pr-20 md:px-16 md:pr-24 py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.7) 0%, rgba(253,242,244,0.62) 40%, rgba(245,242,250,0.7) 100%)" }}
     >
       {/* Warm ambient glow */}
       <div
@@ -29,7 +29,7 @@ export function PersonalVideo({ content }: { content: SiteContent["forYou"] }) {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              {content.label}
+              for you
             </motion.p>
             <motion.h2
               className="font-display text-display-md text-ink text-balance leading-tight mb-10"

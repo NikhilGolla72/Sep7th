@@ -25,7 +25,7 @@ export function VideoBlock({ video, featured = false, className = "" }: { video:
           <>
             <video ref={ref} src={video.src} poster={video.poster} muted playsInline preload="metadata"
               onError={() => setFailed(true)} onEnded={() => setPlaying(false)}
-              className="w-full aspect-video object-cover"
+              className="w-full max-h-[72vh] object-contain bg-ink"
             />
             <AnimatePresence>
               {!playing && (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export function RibbonUnwrap({ onDone }: { onDone: () => void }) {
@@ -10,6 +10,12 @@ export function RibbonUnwrap({ onDone }: { onDone: () => void }) {
     setStage("unwrapping");
     setTimeout(() => { setStage("done"); onDone(); }, reduce ? 0 : 2000);
   };
+
+  useEffect(() => {
+    const t = setTimeout(start, reduce ? 0 : 900);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AnimatePresence>
@@ -112,7 +118,7 @@ export function RibbonUnwrap({ onDone }: { onDone: () => void }) {
             animate={{ opacity: [0.4, 0.9, 0.4] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            {stage === "idle" ? "tap to unwrap" : "opening…"}
+            {stage === "idle" ? "unwrapping for you…" : "opening…"}
           </motion.p>
         </motion.div>
       )}

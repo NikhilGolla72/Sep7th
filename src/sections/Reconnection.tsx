@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import type { SiteContent } from "../data/types";
 import { PhotoFrame } from "../components/PhotoFrame";
@@ -28,17 +28,23 @@ function MeetingPoint() {
     setTimeout(() => setBloomed(false), 3000);
   };
 
+  useEffect(() => {
+    const t = setTimeout(trigger, reduce ? 0 : 900);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="relative flex items-center justify-center my-10" aria-label="The moment we found each other">
       <svg viewBox="0 0 320 80" fill="none" className="w-72" aria-hidden="true">
         <motion.path d="M 0 20 C 70 20, 120 60, 160 60"
           stroke="#E8715A" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round"
-          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
           transition={{ duration: reduce ? 0 : 1.6, ease: [0.16,1,0.3,1], delay: 0.3 }}
         />
         <motion.path d="M 320 60 C 250 60, 200 60, 160 60"
           stroke="#F4B8C1" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round"
-          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
           transition={{ duration: reduce ? 0 : 1.6, ease: [0.16,1,0.3,1], delay: 0.6 }}
         />
       </svg>
@@ -112,8 +118,8 @@ function MeetingPoint() {
 export function Reconnection({ content }: { content: SiteContent["september7"] }) {
   return (
     <div
-      className="min-h-screen flex items-center px-8 md:px-16 py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #FDF2F4 60%, #FBF8F3 100%)" }}
+      className="min-h-screen flex items-center px-8 pr-20 md:px-16 md:pr-24 py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.68) 0%, rgba(253,242,244,0.62) 60%, rgba(251,248,243,0.68) 100%)" }}
     >
       {/* Watermark date */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden" aria-hidden="true">
@@ -189,7 +195,7 @@ export function Reconnection({ content }: { content: SiteContent["september7"] }
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           <div>
             <motion.p
-              className="font-body text-ink-2 leading-[1.9] text-[0.95rem] mb-8 max-w-measure"
+              className="font-body text-ink-2 leading-[2] text-[1.02rem] mb-8 max-w-measure whitespace-pre-line"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.25 }}
             >

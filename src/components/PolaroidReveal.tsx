@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Photo } from "../data/types";
 
@@ -20,7 +20,11 @@ export function PolaroidReveal({ photo, caption }: PolaroidRevealProps) {
     setTimeout(() => setDeveloped(true), reduce ? 0 : 1200);
   };
 
-  const aspect = photo.orientation === "portrait" ? "aspect-[3/4]" : "aspect-[4/3]";
+  useEffect(() => {
+    const t = setTimeout(handleShake, reduce ? 0 : 700);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <motion.div
@@ -45,7 +49,7 @@ export function PolaroidReveal({ photo, caption }: PolaroidRevealProps) {
         }}
       >
         {/* Photo area */}
-        <div className={`${aspect} relative overflow-hidden bg-cream-2`}>
+        <div className="relative overflow-hidden bg-cream-2 min-h-[200px] flex items-center justify-center">
           {/* Development overlay — fades away when developed */}
           <motion.div
             className="absolute inset-0 z-10"
@@ -72,7 +76,7 @@ export function PolaroidReveal({ photo, caption }: PolaroidRevealProps) {
               <img
                 src={photo.src} alt={photo.alt} loading="lazy"
                 onError={() => setFailed(true)} onLoad={() => setLoaded(true)}
-                className={`block w-full h-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+              className={`block max-h-[62vh] w-full object-contain transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
               />
             </>
           ) : (

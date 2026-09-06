@@ -12,6 +12,8 @@ export default {
         "ink-2":    "#44403C",
         "ink-3":    "#A8A29E",
         rule:       "#E7DDD1",
+        paper:      "#FFFBF9",
+        "paper-2":  "#F5EFE6",
 
         // Chapter accent backgrounds — each chapter can have its own warm color
         rose:       "#F4B8C1",   // soft rose

@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import type { SiteContent, Photo } from "../data/types";
 import { Lightbox } from "../components/Lightbox";
-import { PolaroidStack } from "../components/PolaroidStack";
 
 function TiltPhoto({ photo, index, onClick }: { photo: Photo; index: number; onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,11 +48,11 @@ function TiltPhoto({ photo, index, onClick }: { photo: Photo; index: number; onC
       <div className="relative overflow-hidden rounded-lg bg-cream-2">
         {!failed ? (
           <>
-            {!loaded && <div className={`${aspect} bg-cream-2 animate-pulse`} />}
+            {!loaded && <div className="min-h-[180px] bg-cream-2 animate-pulse" />}
             <img
               src={photo.src} alt={photo.alt} loading="lazy"
               onError={() => setFailed(true)} onLoad={() => setLoaded(true)}
-              className={`block w-full ${aspect} object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0 absolute inset-0"}`}
+              className={`block w-full max-h-[58vh] object-contain bg-[#1a1512] transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
             />
           </>
         ) : (
@@ -72,8 +71,8 @@ export function Gallery({ content }: { content: SiteContent["theArchive"] }) {
 
   return (
     <div
-      className="min-h-screen px-8 md:px-16 py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #FDF8EC 50%, #FDF6EF 100%)" }}
+      className="min-h-screen px-8 pr-20 md:px-16 md:pr-24 py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.7) 0%, rgba(253,248,236,0.64) 50%, rgba(253,246,239,0.7) 100%)" }}
     >
       {/* Soft gold ambient */}
       <div
@@ -84,7 +83,7 @@ export function Gallery({ content }: { content: SiteContent["theArchive"] }) {
 
       <div className="max-w-wide mx-auto">
         {/* Header row with polaroid stack */}
-        <div className="flex items-start justify-between gap-8 mb-14">
+        <div className="mb-14">
           <div className="flex-1">
             <motion.p
               className="font-body text-[10px] tracking-[0.4em] uppercase mb-6"
@@ -111,15 +110,6 @@ export function Gallery({ content }: { content: SiteContent["theArchive"] }) {
               </motion.p>
             )}
           </div>
-
-          {/* Polaroid stack easter egg */}
-          <motion.div
-            className="flex-shrink-0 hidden md:block"
-            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-          >
-            <PolaroidStack />
-          </motion.div>
         </div>
 
         {/* Masonry photo grid */}

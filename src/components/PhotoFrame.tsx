@@ -31,11 +31,11 @@ export function PhotoFrame({ photo, className = "", showCaption = false, tiltDeg
       >
         {!failed ? (
           <>
-            {!loaded && <div className={`${aspect} bg-paper-2 animate-pulse`} />}
+            {!loaded && <div className="min-h-[220px] bg-paper-2 animate-pulse" />}
             <img
               src={photo.src} alt={photo.alt} loading="lazy"
               onError={() => setFailed(true)} onLoad={() => setLoaded(true)}
-              className={`block w-full ${aspect} object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0 absolute inset-0"}`}
+              className={`block w-full max-h-[70vh] object-contain bg-cream-2 transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0 absolute inset-0"}`}
             />
           </>
         ) : (

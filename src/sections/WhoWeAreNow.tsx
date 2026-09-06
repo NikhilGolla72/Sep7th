@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { SiteContent } from "../data/types";
 import { BloomingRose } from "../components/BloomingRose";
 import { Butterfly } from "../components/Butterfly";
-import { SpinningGirl } from "../components/SpinningGirl";
 
 const BUTTERFLIES = [
   { x: "8%",  y: "15%", delay: 0,   scale: 0.9, color: "#F4B8C1" },
@@ -14,20 +12,10 @@ const BUTTERFLIES = [
 ];
 
 export function WhoWeAreNow({ content }: { content: SiteContent["usNow"] }) {
-  const [visible, setVisible] = useState(false);
-
   return (
     <div
-      className="min-h-screen flex items-center px-8 md:px-16 py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #EFF6FD 60%, #FBF8F3 100%)" }}
-      ref={(el) => {
-        if (!el) return;
-        const obs = new IntersectionObserver(
-          ([e]) => { if (e.isIntersecting) setVisible(true); },
-          { threshold: 0.3 }
-        );
-        obs.observe(el);
-      }}
+      className="min-h-screen flex items-center px-8 pr-20 md:px-16 md:pr-24 py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.68) 0%, rgba(239,246,253,0.6) 60%, rgba(251,248,243,0.68) 100%)" }}
     >
       {/* Butterflies floating in background */}
       {BUTTERFLIES.map((b, i) => <Butterfly key={i} {...b} />)}
@@ -45,28 +33,28 @@ export function WhoWeAreNow({ content }: { content: SiteContent["usNow"] }) {
           <motion.p
             className="font-body text-[10px] tracking-[0.4em] uppercase mb-6"
             style={{ color: "#A0C4E8" }}
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             {content.label}
           </motion.p>
           <motion.h2
             className="font-display text-display-md text-ink text-balance leading-tight mb-8"
-            initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           >
             {content.heading}
           </motion.h2>
           <motion.p
-            className="font-body text-ink-2 leading-[1.9] text-[0.95rem] max-w-measure"
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="font-body text-ink-2 leading-[2] text-[1.02rem] max-w-measure whitespace-pre-line"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.2 }}
           >
             {content.body}
           </motion.p>
           <motion.div
             className="mt-10 flex items-center gap-3"
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.35 }}
             aria-hidden="true"
           >
@@ -79,14 +67,11 @@ export function WhoWeAreNow({ content }: { content: SiteContent["usNow"] }) {
         {/* Rose easter egg + spinning girl */}
         <motion.div
           className="flex flex-col items-center gap-6 relative z-10"
-          initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.15 }}
         >
-          <BloomingRose autoTrigger={visible} />
-          <p className="font-body text-xs text-ink-3/50 tracking-wide text-center">tap the rose 🌹</p>
-          <div className="mt-2 opacity-80">
-            <SpinningGirl size={110} />
-          </div>
+          <BloomingRose autoTrigger />
+          <p className="font-body text-xs text-ink-3/50 tracking-wide text-center">for you, Bangaram</p>
         </motion.div>
       </div>
     </div>

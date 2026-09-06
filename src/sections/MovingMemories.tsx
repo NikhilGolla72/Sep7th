@@ -6,8 +6,8 @@ import { FilmReel } from "../components/FilmReel";
 export function MovingMemories({ content }: { content: SiteContent["movingMemories"] }) {
   return (
     <div
-      className="min-h-screen px-8 md:px-16 py-24 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #FDF2F4 50%, #FDF6EF 100%)" }}
+      className="min-h-screen px-8 pr-20 md:px-16 md:pr-24 py-24 relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.7) 0%, rgba(253,242,244,0.64) 50%, rgba(253,246,239,0.7) 100%)" }}
     >
       {/* Decorative film reels in corners */}
       <div className="absolute top-8 right-8 opacity-15 pointer-events-none" aria-hidden="true">
@@ -49,16 +49,15 @@ export function MovingMemories({ content }: { content: SiteContent["movingMemori
           </motion.p>
         )}
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid gap-10">
           {content.videos.map((video, i) => (
             <motion.div
-              key={i}
+              key={video.src}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
-              <VideoBlock video={video} />
+              <VideoBlock video={video} featured={i === 0} />
             </motion.div>
           ))}
         </div>

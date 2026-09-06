@@ -45,10 +45,8 @@ export type ChapterId =
   | "september-7"
   | "everything-after"
   | "us-now"
-  | "things-i-dont-say"
   | "the-archive"
   | "moving"
-  | "the-letter"
   | "for-you"
   | "the-end";
 
@@ -76,20 +74,20 @@ export interface SiteContent {
     body: string;
     memory: string;
     photo: Photo;
+    greeting?: string;
   };
 
   smallThings: {
     label: string;
     heading: string;
-    intro: string;
-    fragments: MemoryFragment[];
+    body: string;
   };
 
   onlyWeKnow: {
     label: string;
     heading: string;
-    intro: string;
-    jokes: InsideJoke[];
+    body: string;
+    photos: Photo[];
   };
 
   whenYouDisappeared: {
@@ -110,19 +108,14 @@ export interface SiteContent {
   everythingAfter: {
     label: string;
     heading: string;
-    intro: string;
-    entries: TimelineEntry[];
+    body: string;
+    photos: Photo[];
   };
 
   usNow: {
     label: string;
     heading: string;
     body: string;
-  };
-
-  thingsDontSay: {
-    heading: string;
-    message: string;
   };
 
   theArchive: {
@@ -139,12 +132,6 @@ export interface SiteContent {
     videos: Video[];
   };
 
-  theLetter: {
-    heading?: string;
-    body: string;
-    signature: string;
-  };
-
   forYou: {
     heading: string;
     intro?: string;
@@ -153,10 +140,12 @@ export interface SiteContent {
   };
 
   theEnd: {
-    line: string;
+    wish: string;
+    question: string;
+    yesLabel: string;
+    noLabel: string;
+    vow: string;
     date?: string;
-    initials: string;
-    closing: string;
   };
 
   audio?: {

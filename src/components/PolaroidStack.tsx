@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-/**
- * A stack of polaroid frames that fans out on click, then
- * collapses back. Pure decoration — no real photos, just shape.
- */
+const STACK_PHOTOS = [
+  "/photos/cafe-night.jpg",
+  "/photos/school-class.jpg",
+  "/photos/jul-2025-a.jpg",
+  "/photos/jun-2026-e.jpg",
+  "/photos/bw-selfie.jpg",
+];
+
 const STACK_COLORS = [
   "#FDF2F4", "#FDF8EC", "#F5F2FA", "#EFF6ED", "#FBF8F3",
 ];
@@ -20,6 +24,11 @@ const TRANSLATIONS = [
 
 export function PolaroidStack() {
   const [fanned, setFanned] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setFanned(true), 700);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="relative flex items-center justify-center" style={{ height: 160 }} aria-hidden="true">
@@ -48,17 +57,13 @@ export function PolaroidStack() {
           onClick={() => setFanned(!fanned)}
           whileHover={{ y: fanned ? TRANSLATIONS[i].y - 6 : -4 }}
         >
-          {/* Photo area — colored gradient placeholder */}
-          <div
-            className="w-full h-full rounded-sm"
-            style={{
-              background: `linear-gradient(135deg, ${
-                ["#F4B8C1","#F5C4A0","#B8A9D4","#A8C5A0","#A0C4E8"][i]
-              }40, ${
-                ["#F4B8C1","#F5C4A0","#B8A9D4","#A8C5A0","#A0C4E8"][i]
-              }20)`,
-            }}
-          />
+          <div className="w-full h-full rounded-sm overflow-hidden bg-cream-2">
+            <img
+              src={STACK_PHOTOS[i]}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
         </motion.div>
       ))}
 

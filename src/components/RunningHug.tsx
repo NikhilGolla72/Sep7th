@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 
 /**
@@ -14,6 +14,14 @@ export function RunningHug() {
     setStage("running");
     setTimeout(() => setStage("hugging"), reduce ? 0 : 2200);
   };
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setStage("running");
+      setTimeout(() => setStage("hugging"), reduce ? 0 : 2200);
+    }, reduce ? 0 : 600);
+    return () => clearTimeout(t);
+  }, [reduce]);
 
   const isRunning = stage === "running";
   const isHugging = stage === "hugging";
@@ -232,7 +240,7 @@ export function RunningHug() {
             animate={{ opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            tap to run
+            watch them find each other
           </motion.p>
         )}
         {stage === "hugging" && (

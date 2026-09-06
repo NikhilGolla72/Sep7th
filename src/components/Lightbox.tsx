@@ -14,12 +14,12 @@ export function Lightbox({ photos, index, onClose, onNavigate }: {
     if (!isOpen) return;
     const h = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") { e.preventDefault(); e.stopImmediatePropagation(); prev(); }
+      if (e.key === "ArrowRight") { e.preventDefault(); e.stopImmediatePropagation(); next(); }
     };
-    window.addEventListener("keydown", h);
+    window.addEventListener("keydown", h, true);
     document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", h); document.body.style.overflow = ""; };
+    return () => { window.removeEventListener("keydown", h, true); document.body.style.overflow = ""; };
   }, [isOpen, onClose, prev, next]);
 
   return (

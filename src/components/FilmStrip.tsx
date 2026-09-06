@@ -5,7 +5,6 @@ export function FilmStrip() {
   const frameW = 80;
   const frameH = 60;
   const gap = 12;
-  const sprocketR = 5;
   const totalW = frames * (frameW + gap);
 
   return (

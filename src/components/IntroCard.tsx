@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { CuteBackdrop } from "./CuteBackdrop";
 
 interface IntroCardProps {
-  onEnter: () => void;
+  onEnter?: () => void;
 }
 
 // Floating petal
@@ -190,7 +191,7 @@ export function IntroCard({ onEnter }: IntroCardProps) {
 
   const handleEnter = () => {
     setVisible(false);
-    setTimeout(onEnter, 700);
+    setTimeout(() => onEnter?.(), 700);
   };
 
   return (
@@ -198,10 +199,11 @@ export function IntroCard({ onEnter }: IntroCardProps) {
       {visible && (
         <motion.div
           className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden"
-          style={{ background: "linear-gradient(160deg, #FBF8F3 0%, #FDF2F4 50%, #FDF8EC 100%)" }}
+          style={{ background: "linear-gradient(160deg, rgba(251,248,243,0.82) 0%, rgba(253,242,244,0.78) 50%, rgba(253,248,236,0.82) 100%)" }}
           exit={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
+          <CuteBackdrop chapterIndex={13} />
           {/* Floating petals */}
           {PETALS.map((p, i) => <Petal key={i} {...p} />)}
 

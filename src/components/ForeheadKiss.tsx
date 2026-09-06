@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 /**
@@ -9,6 +9,11 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 export function ForeheadKiss() {
   const [kissed, setKissed] = useState(false);
   const reduce = useReducedMotion();
+
+  useEffect(() => {
+    const t = setTimeout(() => { if (!reduce) setKissed(true); }, reduce ? 0 : 800);
+    return () => clearTimeout(t);
+  }, [reduce]);
 
   return (
     <div className="flex flex-col items-center gap-3 select-none">
@@ -126,7 +131,7 @@ export function ForeheadKiss() {
           animate={{ opacity: [0.3, 0.8, 0.3] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          {kissed ? "tap again" : "tap"}
+          {kissed ? "us, still" : "watch"}
         </motion.p>
       </div>
     </div>
