@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-const ACCESS_CODE = "14052206";
+const ACCESS_CODE = "14052204";
 const STORAGE_KEY = "sep7th-unlocked";
 
 export function PasscodeGate({ children }: { children: ReactNode }) {
@@ -41,8 +41,6 @@ export function PasscodeGate({ children }: { children: ReactNode }) {
       >
         <p className="font-body text-[10px] tracking-[0.35em] uppercase text-[#c26b7a] mb-3">private link</p>
         <h1 className="font-display text-4xl text-ink text-balance leading-tight mb-3">Enter the passcode</h1>
-        <p className="font-body text-sm text-ink-3 mb-8">This story opens only for the right person.</p>
-
         <label className="sr-only" htmlFor="passcode">Passcode</label>
         <input
           id="passcode"
