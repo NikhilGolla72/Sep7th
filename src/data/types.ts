@@ -136,7 +136,6 @@ export interface SiteContent {
     heading: string;
     intro?: string;
     video: Video;
-    closingLine: string;
   };
 
   theEnd: {

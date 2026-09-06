@@ -3,7 +3,7 @@
 A fully interactive, animated website built as a personal gift for a best friend.
 Not a template. Built for one specific person, one specific story.
 
-Live at: [https://github.com/NikhilGolla12/Sep7th](https://github.com/NikhilGolla12/Sep7th)
+Live at: your Vercel deployment URL
 
 ---
 
@@ -115,10 +115,12 @@ Produces a `dist/` folder — plain HTML/CSS/JS, no server needed.
 4. Share the link
 
 ### Vercel
-```bash
-npm i -g vercel
-vercel
-```
+1. Import the GitHub repo in Vercel: [github.com/NikhilGolla72/Sep7th](https://github.com/NikhilGolla72/Sep7th)
+2. Set the framework preset to **Vite**
+3. Keep the root directory as `./`
+4. Use `npm run build` as the build command
+5. Use `dist` as the output directory
+6. Click **Deploy**
 
 ### GitHub Pages
 Push to GitHub, go to Settings → Pages → deploy from `dist/` branch.

@@ -111,13 +111,11 @@ export const content: SiteContent = {
   },
 
   forYou: {
-    heading: "A smaller moving piece of the same thread",
-    intro: "A different evening. Unwrap it.",
+    heading: "Just for you",
     video: {
-      src: "/videos/VID-20250604-WA0000.mp4",
+      src: "/videos/VID20260906205824.mp4",
       poster: "/photos/jul-2026-f.jpg",
     },
-    closingLine: "I am glad we did not stay lost.",
   },
 
   theEnd: {
