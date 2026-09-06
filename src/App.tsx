@@ -2,6 +2,7 @@ import { content } from "./data/content";
 import { useStory } from "./hooks/useStory";
 import { StoryShell } from "./components/StoryShell";
 import { AudioToggle } from "./components/AudioToggle";
+import { PasscodeGate } from "./components/PasscodeGate";
 import { Opening } from "./sections/Opening";
 import { Beginning } from "./sections/Beginning";
 import { LittleMoments } from "./sections/LittleMoments";
@@ -49,7 +50,7 @@ export default function App() {
   ];
 
   return (
-    <>
+    <PasscodeGate>
       <StoryShell story={story} chapters={CHAPTERS}>
         {chapters}
       </StoryShell>
@@ -57,6 +58,6 @@ export default function App() {
       {content.audio && (
         <AudioToggle src={content.audio.src} label={content.audio.label} />
       )}
-    </>
+    </PasscodeGate>
   );
 }
