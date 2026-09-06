@@ -70,7 +70,6 @@ export function PasscodeGate({ children }: { children: ReactNode }) {
           Unlock
         </button>
 
-        <p className="mt-6 text-xs text-ink-3 font-body">Hint: this site is for one person only.</p>
       </motion.div>
     </div>
   );
